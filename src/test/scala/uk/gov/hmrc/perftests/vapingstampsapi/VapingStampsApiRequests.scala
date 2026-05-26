@@ -28,8 +28,8 @@ object VapingStampsApiRequests extends ServicesConfiguration {
 
   private val json =
     s"""{
-      |"contactEmail":"#{contactEmail}",
-      |"vdsApprovalId":"#{vdsApprovalId}"
+      |"vdsEmail":"#{vdsEmail}",
+      |"stampsReferenceNumber":"#{stampsReferenceNumber}"
       | }
       |""".stripMargin
 
