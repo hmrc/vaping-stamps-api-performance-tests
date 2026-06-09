@@ -24,7 +24,7 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 object VapingStampsApiRequests extends ServicesConfiguration {
 
   val baseUrl: String = baseUrlFor("vaping-stamps-api")
-  val route: String = "/status"
+  val route: String   = "/status"
 
   private val json =
     s"""{
@@ -36,7 +36,13 @@ object VapingStampsApiRequests extends ServicesConfiguration {
   val postApprovalStatusCheck: HttpRequestBuilder =
     http("Post Approval Status Check")
       .post(s"$baseUrl$route": String)
-      .header(HttpHeaderNames.Authorization, s"#{bearerToken}")
+      .headers(
+        Map(
+          HttpHeaderNames.Accept        -> "application/vnd.hmrc.1.0+json",
+          HttpHeaderNames.Authorization -> "#{bearerToken}",
+          HttpHeaderNames.ContentType   -> "application/json"
+        )
+      )
       .body(StringBody(json))
       .asJson
       .check(status.is(200))
