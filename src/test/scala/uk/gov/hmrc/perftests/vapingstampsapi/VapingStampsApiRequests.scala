@@ -36,7 +36,13 @@ object VapingStampsApiRequests extends ServicesConfiguration {
   val postApprovalStatusCheck: HttpRequestBuilder =
     http("Post Approval Status Check")
       .post(s"$baseUrl$route": String)
-      .header(HttpHeaderNames.Authorization, s"#{bearerToken}")
+      .headers(
+        Map(
+          HttpHeaderNames.Accept -> "application/vnd.hmrc.1.0+json",
+          HttpHeaderNames.Authorization -> "#{bearerToken}",
+          HttpHeaderNames.ContentType -> "application/json"
+        )
+      )
       .body(StringBody(json))
       .asJson
       .check(status.is(200))
